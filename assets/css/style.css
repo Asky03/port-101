@@ -4,7 +4,7 @@
   --bg-2:#0f1430;
   --text:#eaf2ff;
   --muted:#9aa4b2;
-  --accent:#7cf5ff;
+  --accent:#e4c810;
   --accent-2:#a78bfa;
   --glass: rgba(255,255,255,0.06);
   --card: rgba(255,255,255,0.03);
@@ -139,3 +139,11 @@ section[id]{ scroll-margin-top: 96px; }
 
 /* Footer */
 .footer{ padding:36px 0; text-align:center; border-top:1px solid var(--border); background:rgba(0,0,0,.08); }
+
+.tag.reveal {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff; /* keep contrast on dark background */
+}
+
