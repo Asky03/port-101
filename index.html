@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ashutosh Shekhar • Portfolio</title>
+
+  <meta name="description" content="Ashu — portfolio of projects in web, GenAI, and systems design." />
+  <meta name="theme-color" content="#0b0e1a" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Theme Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="nav" id="nav" aria-label="Primary">
+    <div class="brand"><i class="fa-solid fa-rocket"></i> Portfolio.o </div>
+
+    <button class="hamburger" id="menuBtn" aria-label="Open Menu" aria-expanded="false" aria-controls="links">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="links" id="links">
+      <a href="#home" class="active">Home</a>
+      <a href="#projects">Projects</a>
+      <a class="cta" href="#connect"><i class="fa-regular fa-paper-plane"></i> Connect</a>
+
+      <!-- External socials -->
+      <a class="icon-btn" href="https://github.com/your-username" target="_blank" rel="noopener" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <i class="fa-brands fa-linkedin-in"></i>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HOME / HERO -->
+    <section class="page hero" id="home" aria-label="Hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="tag reveal"><i ></i> Ashutosh Shekhar </div>
+          <h1 class="reveal">I design &amp; build.</h1>
+          <p class="lead reveal">Working on Gen-AI models and exploring system design architecture.</p>
+          <div class="pill-actions reveal">
+            <a class="btn primary" href="#projects"><i class="fa-solid fa-bolt"></i> See Projects</a>
+            <a class="btn" href="#connect"><i class="fa-regular fa-comment-dots"></i> Connect</a>
+          </div>
+        </div>
+
+        <aside class="feature-card reveal" aria-label="Highlights">
+          <strong>Highlights</strong>
+          <ul class="bullets">
+            <li>Working on Gen-AI models</li>
+            <li>Exploring system design &amp; architecture</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="page" id="projects" aria-label="Featured Projects">
+      <div class="container">
+        <h2 class="section-title reveal">Featured Projects</h2>
+
+        <div class="grid" role="list">
+          <!-- Project 1 -->
+          <article class="card reveal" role="listitem">
+            <span class="chip">Next.js</span>
+            <h3>KiranaWala</h3>
+            <p class="muted">Quick-commerce app connecting local kirana stores to users.</p>
+            <div class="chips">
+              <span class="chip">MongoDB</span><span class="chip">Express</span><span class="chip">React</span>
+            </div>
+            <div class="actions">
+              <a class="btn small" href="https://github.com/your-username/kiranawala" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> Code
+              </a>
+              <a class="btn small ghost" href="https://demo.example.com/kiranawala" target="_blank" rel="noopener">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2 -->
+          <article class="card reveal" role="listitem">
+            <span class="chip">Firebase</span>
+            <h3>AI Krishi Sahayak</h3>
+            <p class="muted">Gemini-powered crop advisory with localized tips and SMS.</p>
+            <div class="chips">
+              <span class="chip">Vertex AI</span><span class="chip">Twilio</span><span class="chip">PWA</span>
+            </div>
+            <div class="actions">
+              <a class="btn small" href="https://github.com/your-username/ai-krishi" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> Code
+              </a>
+              <a class="btn small ghost" href="https://demo.example.com/ai-krishi" target="_blank" rel="noopener">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 3 -->
+          <article class="card reveal" role="listitem">
+            <span class="chip">Solidity</span>
+            <h3>T3TRUST</h3>
+            <p class="muted">Micro-credit prototype with trust scoring and a mock ledger.</p>
+            <div class="chips">
+              <span class="chip">Hardhat</span><span class="chip">Next.js</span><span class="chip">Razorpay</span>
+            </div>
+            <div class="actions">
+              <a class="btn small" href="https://github.com/your-username/t3trust" target="_blank" rel="noopener">
+                <i class="fa-brands fa-github"></i> Code
+              </a>
+              <a class="btn small ghost" href="https://demo.example.com/t3trust" target="_blank" rel="noopener">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i> Live
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECT -->
+    <section class="page" id="connect" aria-label="Connect">
+      <div class="container">
+        <h2 class="section-title reveal">Connect</h2>
+
+        <div class="contact-card reveal">
+          <p class="muted">Open to internships, collabs, and cool problems. DM me or drop a note.</p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="mailto:youremail@domain.com">
+              <i class="fa-regular fa-envelope"></i> Email
+            </a>
+            <a class="btn" href="https://github.com/Asky03" target="_blank" rel="noopener">
+              <i class="fa-brands fa-github"></i> GitHub
+            </a>
+            <a class="btn" href="www.linkedin.com/in/ashutoshs27" target="_blank" rel="noopener">
+              <i class="fa-brands fa-linkedin-in"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container muted">© <span id="year"></span> Ashutosh Shekhar • All Right Reserved</div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
