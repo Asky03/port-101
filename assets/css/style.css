@@ -141,7 +141,7 @@ section[id]{ scroll-margin-top: 96px; }
 .footer{ padding:36px 0; text-align:center; border-top:1px solid var(--border); background:rgba(0,0,0,.08); }
 
 .tag.reveal {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #fff; /* keep contrast on dark background */
