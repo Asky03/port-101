@@ -37,5 +37,38 @@ revs.forEach(r => io2.observe(r));
 const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
 
+// ===== Email button: Gmail on desktop, mail app on mobile (fallback to mailto) =====
+(function () {
+  const emailBtn = document.getElementById('emailBtn');
+  if (!emailBtn) return;
+
+  const EMAIL = 'Ashushekhar2442@gmail.com';
+  const SUBJECT = 'Hello from your portfolio';
+  const BODY = `Hi Ashutosh,
+
+I saw your portfolio and would love to connect about...`;
+
+  const mailto = `mailto:${EMAIL}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
+  const gmailCompose = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(EMAIL)}&su=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(BODY)}`;
+
+  emailBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    // On mobile, prefer the default mail app
+    if (isMobile) {
+      window.location.href = mailto;
+      return;
+    }
+
+    // On desktop, open Gmail compose in a new tab. If blocked, fall back to mailto.
+    const win = window.open(gmailCompose, '_blank');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      window.location.href = mailto;
+    }
+  });
+})();
+
+
 
 
