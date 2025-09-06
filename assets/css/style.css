@@ -147,3 +147,14 @@ section[id]{ scroll-margin-top: 96px; }
   color: #fff; /* keep contrast on dark background */
 }
 
+.chip {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text);
+}
+.chip:hover {
+  border-color: rgba(124,245,255,.45);
+  background: rgba(255,255,255,.06);
+}
+
+
