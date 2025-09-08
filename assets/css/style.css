@@ -77,6 +77,16 @@ body{
   box-shadow: 0 12px 40px rgba(124,245,255,.4);
 }
 
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  border-color: rgba(124,245,255,.6);
+  box-shadow: 0 8px 24px rgba(124,245,255,.2);
+}
+
 .tag{
   display:inline-flex; gap:8px; align-items:center; padding:6px 10px;
   border:1px solid var(--border); border-radius:999px; color:var(--muted); margin-bottom:16px;
