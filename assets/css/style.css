@@ -63,11 +63,20 @@ body{
   border-radius:12px; border:1px solid var(--border); background:var(--glass);
   color:var(--text); text-decoration:none; font-weight:700;
 }
-.btn.primary{
-  border-color:transparent;
-  background:linear-gradient(135deg, var(--accent) 0%, #64d2ff 40%, #70a6ff 100%);
-  color:#051018; box-shadow:0 8px 30px rgba(124,245,255,.25);
+
+.btn.primary {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--accent) 0%, #64d2ff 40%, #70a6ff 100%);
+  color: #051018;
+  box-shadow: 0 8px 30px rgba(124,245,255,.25);
+  transition: all 0.3s ease;  /* smooth animation */
 }
+/* Add hover effect */
+.btn.primary:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(124,245,255,.4);
+}
+
 .tag{
   display:inline-flex; gap:8px; align-items:center; padding:6px 10px;
   border:1px solid var(--border); border-radius:999px; color:var(--muted); margin-bottom:16px;
