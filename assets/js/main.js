@@ -62,7 +62,10 @@ I saw your portfolio and would love to connect about...`;
     }
 
     // On desktop, open Gmail compose in a new tab. If blocked, fall back to mailto.
-    
+    const win = window.open(gmailCompose, '_blank');
+    if (!win || win.closed || typeof win.closed === 'undefined') {
+      window.location.href = mailto;
+    }
   });
 })();
 
