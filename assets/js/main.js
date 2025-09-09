@@ -44,7 +44,7 @@ if (y) y.textContent = new Date().getFullYear();
 
   const EMAIL = 'Ashushekhar2442@gmail.com';
   const SUBJECT = 'Hello from your portfolio';
-  const BODY = `Hi Ashutosh,
+  const BODY = `Hi Ashu,
 
 I saw your portfolio and would love to connect about...`;
 
