@@ -33,6 +33,31 @@
 
 </head>
 <body>
+
+  <!-- PRELOADER -->
+<div id="preloader" aria-hidden="true">
+  <div class="pl-wrap">
+    <div class="pl-logo">
+      <i class="fa-solid fa-laptop-code"></i> Ashu
+    </div>
+
+    <!-- progress + lanes -->
+    <div class="pl-lanes" aria-label="Initializing">
+      <span class="lane"></span><span class="lane"></span><span class="lane"></span>
+    </div>
+
+    <div class="pl-bar">
+      <div class="pl-fill" id="plFill" style="width:0%"></div>
+    </div>
+
+    <div class="pl-meta">
+      <span id="plPct">0%</span> • routing traffic…
+    </div>
+  </div>
+  <noscript><style>#preloader{display:none}</style></noscript>
+</div>
+
+
   <!-- NAVBAR -->
   <nav class="nav" id="nav" aria-label="Primary">
     <div class="brand"><i class="fa-solid fa-laptop-code"></i> Portfolio.o </div>

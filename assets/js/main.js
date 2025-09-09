@@ -69,6 +69,53 @@ I saw your portfolio and would love to connect about...`;
   });
 })();
 
+// ===== PRELOADER =====
+// Plays once per browser session
+(function(){
+  const pre = document.getElementById('preloader');
+  const fill = document.getElementById('plFill');
+  const pct  = document.getElementById('plPct');
+  if (!pre || sessionStorage.getItem('seenPreloader')) {
+    pre?.classList.add('hide');
+    return;
+  }
 
+  let p = 0, done = false;
 
+  // Simulate work: quickly to 85%, then wait for real load -> 100
+  const tick = () => {
+    if (done) return;
+    p += Math.max(1, (90 - p) * 0.06);      // ease-out approach to ~90
+    if (p > 90) p = 90;
+    fill.style.width = p.toFixed(0) + '%';
+    if (pct) pct.textContent = p.toFixed(0) + '%';
+    if (p < 90) requestAnimationFrame(tick);
+  };
+  tick();
 
+  // When everything is loaded, finish to 100 then hide
+  const finish = () => {
+    if (done) return;
+    done = true;
+    let v = p;
+    const anim = () => {
+      v += (100 - v) * 0.18;
+      if (v > 99.5) v = 100;
+      fill.style.width = v.toFixed(0) + '%';
+      if (pct) pct.textContent = v.toFixed(0) + '%';
+      if (v < 100) requestAnimationFrame(anim);
+      else {
+        setTimeout(() => {
+          pre.classList.add('hide');
+          sessionStorage.setItem('seenPreloader','1');
+        }, 200); // tiny pause for drama
+      }
+    };
+    anim();
+  };
+
+  // Safety timeout (e.g., slow network) -> finish after 6s
+  setTimeout(finish, 6000);
+  // Real signal
+  window.addEventListener('load', finish);
+})();

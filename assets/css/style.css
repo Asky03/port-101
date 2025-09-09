@@ -176,4 +176,57 @@ section[id]{ scroll-margin-top: 96px; }
   background: rgba(255,255,255,.06);
 }
 
+/* ===== PRELOADER ===== */
+#preloader{
+  position:fixed; inset:0; z-index:10000;
+  background: radial-gradient(1000px 600px at 70% -10%, #18205a 0%, transparent 60%),
+              linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 60%, #060811 100%);
+  display:grid; place-items:center;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#preloader.hide{ opacity:0; visibility:hidden; pointer-events:none }
 
+.pl-wrap{ width:min(520px,92%); text-align:center }
+.pl-logo{
+  display:inline-flex; gap:10px; align-items:center; justify-content:center;
+  font-weight:800; letter-spacing:.5px; font-size:clamp(18px,3vw,22px);
+  padding:10px 14px; border:1px solid var(--border); border-radius:14px; 
+  background:var(--glass);
+}
+.pl-logo i{ color:var(--accent) }
+
+.pl-lanes{
+  display:grid; gap:6px; margin:18px 0 12px;
+}
+.pl-lanes .lane{
+  height:6px; border-radius:999px; background:rgba(255,255,255,.06);
+  position:relative; overflow:hidden;
+}
+.pl-lanes .lane::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  width:25%; transform:translateX(-100%);
+  animation:lane-sweep 1.4s ease-in-out infinite;
+}
+.pl-lanes .lane:nth-child(2)::after{ animation-delay:.25s }
+.pl-lanes .lane:nth-child(3)::after{ animation-delay:.5s }
+@keyframes lane-sweep{ to { transform:translateX(400%) } }
+
+.pl-bar{
+  height:10px; border-radius:999px; border:1px solid var(--border);
+  background:rgba(255,255,255,.04); overflow:hidden;
+}
+.pl-fill{
+  height:100%;
+  background:linear-gradient(135deg, var(--accent) 0%, #64d2ff 40%, #70a6ff 100%);
+  box-shadow:0 0 24px rgba(124,245,255,.35) inset;
+  transition:width .25s ease;
+}
+.pl-meta{ margin-top:10px; color:var(--muted); font-size:14px }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .pl-lanes .lane::after{ animation:none }
+  .pl-fill{ transition:none }
+  #preloader{ transition:none }
+}
