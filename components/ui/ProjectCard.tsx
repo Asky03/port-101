@@ -21,7 +21,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
         boxShadow: '0 12px 40px rgba(124,245,255,.12)',
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="min-h-[220px] rounded-2xl bg-[var(--card)] border border-[var(--border)] p-4.5 relative overflow-hidden cursor-pointer"
+      className="min-h-[220px] rounded-2xl bg-[var(--card)] border border-[var(--border)] p-5 relative overflow-hidden cursor-pointer"
       onClick={onClick}
       role="button"
       tabIndex={0}

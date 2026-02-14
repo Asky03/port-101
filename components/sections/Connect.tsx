@@ -106,11 +106,11 @@ export default function Connect() {
   return (
     <section
       id="connect"
-      className="min-h-screen grid place-items-center py-24"
+      className="min-h-screen grid place-items-center py-24 px-4"
       aria-label="Connect"
     >
       <motion.div
-        className="container mx-auto max-w-3xl"
+        className="w-full max-w-3xl mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}

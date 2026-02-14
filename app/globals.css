@@ -75,6 +75,13 @@ main {
   z-index: 1;
 }
 
+/* Container with proper padding */
+.container {
+  width: min(1200px, 92%);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 44px);
+}
+
 /* Smooth scrolling offset for fixed navbar */
 section[id] {
   scroll-margin-top: 96px;

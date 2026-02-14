@@ -26,11 +26,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="min-h-screen grid place-items-center pt-24"
+      className="min-h-screen grid place-items-center pt-24 px-4"
       aria-label="Hero"
     >
       <motion.div
-        className="container mx-auto"
+        className="w-full max-w-[1200px] mx-auto"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

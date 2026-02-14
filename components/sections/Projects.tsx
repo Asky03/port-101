@@ -51,11 +51,11 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="min-h-screen grid place-items-center py-24"
+      className="min-h-screen grid place-items-center py-24 px-4"
       aria-label="Featured Projects"
     >
       <motion.div
-        className="container mx-auto"
+        className="w-full max-w-[1200px] mx-auto"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-100px' }}
@@ -107,7 +107,7 @@ export default function Projects() {
 
         {/* Projects Grid */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           layout
         >
           <AnimatePresence mode="popLayout">

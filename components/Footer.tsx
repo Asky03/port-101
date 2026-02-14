@@ -11,9 +11,9 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
-      className="py-9 text-center border-t border-[var(--border)] bg-black/[0.08]"
+      className="py-9 text-center border-t border-[var(--border)] bg-black/[0.08] px-4"
     >
-      <div className="container mx-auto text-[var(--muted)]">
+      <div className="w-full max-w-[1200px] mx-auto text-[var(--muted)]">
         © {currentYear} Ashutosh Shekhar • All Rights Reserved
       </div>
     </motion.footer>
