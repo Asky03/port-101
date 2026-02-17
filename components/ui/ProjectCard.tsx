@@ -33,7 +33,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
       }}
     >
       {/* Category Badge */}
-      <span className="inline-block text-xs px-2.5 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.02] mb-2">
+      <span className="inline-block text-xs px-4 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.04] mb-2 shadow-sm font-semibold tracking-wide transition-all duration-300" style={{borderRadius: '999px'}}>
         {project.category}
       </span>
 

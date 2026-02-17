@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Hero from '@/components/sections/Hero';
 import Projects from '@/components/sections/Projects';
 import Connect from '@/components/sections/Connect';
+import Certificates from '@/components/sections/Certificates';
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -57,6 +58,7 @@ export default function Home() {
       />
       <Hero />
       <Projects />
+      <Certificates />
       <Connect />
     </>
   );

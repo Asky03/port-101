@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Toast from '@/components/ui/Toast';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -109,13 +110,14 @@ export default function Connect() {
       className="min-h-screen grid place-items-center py-24 px-4"
       aria-label="Connect"
     >
-      <motion.div
-        className="w-full max-w-3xl mx-auto"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: '-100px' }}
-        variants={containerVariants}
-      >
+      <ScrollReveal>
+        <motion.div
+          className="w-full max-w-3xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-100px' }}
+          variants={containerVariants}
+        >
         <motion.h2
           variants={itemVariants}
           className="text-3xl md:text-4xl lg:text-5xl font-bold mb-5"
@@ -286,7 +288,8 @@ export default function Connect() {
             </form>
           </div>
         </motion.div>
-      </motion.div>
+        </motion.div>
+      </ScrollReveal>
 
       {/* Toast Notification */}
       <Toast

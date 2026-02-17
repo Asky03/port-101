@@ -99,7 +99,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </motion.button>
 
               {/* Category Badge */}
-              <span className="inline-block text-xs px-3 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.02] mb-3">
+              <span className="inline-block text-xs px-4 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.04] mb-3 shadow-sm font-semibold tracking-wide transition-all duration-300" style={{borderRadius: '999px'}}>
                 {project.category}
               </span>
 
@@ -118,8 +118,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 {project.tags.map((tag, i) => (
                   <span
                     key={i}
-                    className="text-xs px-3 py-1.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20"
-                  >
+                    className="text-xs px-4 py-1.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/20 shadow-sm font-semibold tracking-wide transition-all duration-300" style={{borderRadius: '999px'}}>
                     {tag}
                   </span>
                 ))}
@@ -134,8 +133,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {project.tech.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-xs px-3 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.02]"
-                    >
+                      className="text-xs px-4 py-1.5 rounded-full border border-[var(--border)] bg-white/[0.04] shadow-sm font-semibold tracking-wide transition-all duration-300" style={{borderRadius: '999px'}}>
                       {tech}
                     </span>
                   ))}
