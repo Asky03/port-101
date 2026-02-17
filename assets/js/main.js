@@ -38,6 +38,45 @@ const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
 
 // ===== Email button: Gmail on desktop, mail app on mobile (fallback to mailto) =====
+
+// View Projects button scroll/redirect
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.getElementById('view-projects-btn');
+  if (btn) {
+    btn.addEventListener('click', function () {
+      var projectsSection = document.getElementById('projects');
+      if (projectsSection) {
+        // Respect prefers-reduced-motion
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        projectsSection.scrollIntoView({
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        });
+      } else {
+        window.location.href = '/projects.html'; // or '/projects' if that's your route
+      }
+    });
+  }
+
+  // Blue scroll-glow effect
+  var glow = document.querySelector('.scroll-glow');
+  if (glow) {
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      function updateGlow() {
+        var scrollY = window.scrollY || window.pageYOffset;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var percent = docHeight > 0 ? scrollY / docHeight : 0.4;
+        // Clamp between 10% and 80%
+        var y = 10 + percent * 70;
+        glow.style.setProperty('--glow-y', y + '%');
+      }
+      window.addEventListener('scroll', function () {
+        window.requestAnimationFrame(updateGlow);
+      });
+      updateGlow();
+    }
+  }
+});
 (function () {
   const emailBtn = document.getElementById('emailBtn');
   if (!emailBtn) return;
