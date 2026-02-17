@@ -1,3 +1,46 @@
+/* View Projects Button */
+.view-projects-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 2rem;
+  border-radius: 999px;
+  border: 1.5px solid #0099ff;
+  background: #fff;
+  color: #0099ff;
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: 0 4px 24px rgba(0,153,255,0.10);
+  transition: box-shadow 0.2s, background 0.2s, color 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+.view-projects-btn:hover,
+.view-projects-btn:focus {
+  background: #e6f3ff;
+  color: #005fa3;
+  box-shadow: 0 8px 32px 0 rgba(0,153,255,0.22), 0 1.5px 8px 0 rgba(0,153,255,0.10);
+}
+
+/* Blue Scroll Glow Effect */
+.scroll-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  --glow-x: 70%;
+  --glow-y: 40%;
+  background: radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(0,153,255,0.22), transparent 55%);
+  filter: blur(40px);
+  opacity: 0.9;
+  mix-blend-mode: screen;
+  transition: background 0.2s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-glow {
+    transition: none;
+    /* Keep static, don't animate */
+  }
+}
 /* ========== THEME ========== */
 :root{
   --bg: #0b0e1a;
