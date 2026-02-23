@@ -38,9 +38,9 @@
 @media (prefers-reduced-motion: reduce) {
   .scroll-glow {
     transition: none;
-    /* Keep static, don't animate */
   }
 }
+
 /* ========== THEME ========== */
 :root{
   --bg: #0b0e1a;
@@ -66,6 +66,11 @@ body{
   overflow-x:hidden;
 }
 
+main, .footer, .nav {
+  position: relative;
+  z-index: 1;
+}
+
 .muted{color:var(--muted)}
 
 /* ========== NAVBAR ========== */
@@ -88,11 +93,22 @@ body{
   padding:8px 12px; border-radius:999px; transition:all .25s;
 }
 .links a:hover, .links a.active{opacity:1; background:var(--glass)}
+
 .cta{
   display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); background:var(--glass);
   padding:8px 14px; border-radius:999px; text-decoration:none; color:var(--text); font-weight:700;
 }
-.hamburger{display:none; font-size:22px}
+
+.hamburger{
+  display:none;
+  font-size:22px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
 
 /* ========== LAYOUT ========== */
 .page{min-height:100vh; display:grid; place-items:center; padding-top:96px}
@@ -101,10 +117,12 @@ body{
 .section-title{font-size: clamp(26px,3.8vw,42px); margin:0 0 20px}
 .lead{color:var(--muted); font-size:clamp(14px,1.6vw,18px); line-height:1.7}
 .pill-actions{display:flex; gap:14px; margin-top:22px; flex-wrap:wrap}
+
 .btn{
   display:inline-flex; align-items:center; gap:10px; padding:12px 16px;
   border-radius:12px; border:1px solid var(--border); background:var(--glass);
   color:var(--text); text-decoration:none; font-weight:700;
+  transition: all 0.3s ease;
 }
 
 .btn.primary {
@@ -112,16 +130,11 @@ body{
   background: linear-gradient(135deg, var(--accent) 0%, #64d2ff 40%, #70a6ff 100%);
   color: #051018;
   box-shadow: 0 8px 30px rgba(124,245,255,.25);
-  transition: all 0.3s ease;  /* smooth animation */
 }
-/* Add hover effect */
+
 .btn.primary:hover {
   transform: translateY(-4px) scale(1.05);
   box-shadow: 0 12px 40px rgba(124,245,255,.4);
-}
-
-.btn {
-  transition: all 0.3s ease;
 }
 
 .btn:hover {
@@ -133,6 +146,13 @@ body{
 .tag{
   display:inline-flex; gap:8px; align-items:center; padding:6px 10px;
   border:1px solid var(--border); border-radius:999px; color:var(--muted); margin-bottom:16px;
+}
+
+.tag.reveal {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
 }
 
 /* ========== HERO ========== */
@@ -156,14 +176,35 @@ h1{font-size: clamp(38px, 6vw, 72px); line-height:1.06; margin:0 0 12px}
   border:1px solid var(--border); padding:18px; position:relative; overflow:hidden;
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
-.card:hover{ transform: translateY(-6px); border-color:rgba(124,245,255,.45); box-shadow: 0 12px 40px rgba(124,245,255,.12) }
+.card:hover{
+  transform: translateY(-6px);
+  border-color:rgba(124,245,255,.45);
+  box-shadow: 0 12px 40px rgba(124,245,255,.12);
+}
 .card h3{margin:6px 0 8px}
-.chips{display:flex; gap:8px; flex-wrap:wrap; opacity:.9}
-.chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.02)}
 
-/* ========== REVEAL (simple) ========== */
+.chips{display:flex; gap:8px; flex-wrap:wrap; opacity:.9}
+.chip{
+  font-size:12px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.02);
+  display: inline-block;
+  text-decoration: none;
+  color: var(--text);
+}
+.chip:hover {
+  border-color: rgba(124,245,255,.45);
+  background: rgba(255,255,255,.06);
+}
+
+/* Project card action row */
+.actions{ display:flex; gap:10px; margin-top:14px; }
+.btn.small{ padding:8px 12px; border-radius:10px; font-weight:700; font-size:14px; }
+.btn.ghost{ background:transparent; }
+
 /* ========== SCROLL REVEAL / FADE ========== */
-/* Supports: .reveal, .fade-on-scroll, [data-fade] */
 .reveal,
 .fade-on-scroll,
 [data-fade] {
@@ -175,7 +216,6 @@ h1{font-size: clamp(38px, 6vw, 72px); line-height:1.06; margin:0 0 12px}
   will-change: opacity, transform;
 }
 
-/* Visible state added by JS */
 .reveal.visible,
 .fade-on-scroll.visible,
 [data-fade].visible {
@@ -183,7 +223,7 @@ h1{font-size: clamp(38px, 6vw, 72px); line-height:1.06; margin:0 0 12px}
   transform: translateY(0);
 }
 
-/* Optional variants if you want more styles later */
+/* Optional directional variants */
 [data-fade="left"] { transform: translateX(-18px); }
 [data-fade="right"] { transform: translateX(18px); }
 [data-fade="up"] { transform: translateY(18px); }
@@ -196,32 +236,10 @@ h1{font-size: clamp(38px, 6vw, 72px); line-height:1.06; margin:0 0 12px}
   transform: translate(0, 0);
 }
 
-/* Optional: smoother stagger container rendering */
+/* Optional stagger helper */
 [data-stagger] > * {
   backface-visibility: hidden;
   transform: translateZ(0);
-}
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .reveal,
-  .fade-on-scroll,
-  [data-fade] {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-    will-change: auto;
-  }
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 900px){
-  .hero .hero-inner{grid-template-columns:1fr}
-  .links{display:none}
-  .hamburger{display:block}
-  .card{grid-column: span 6}
-}
-@media (max-width: 640px){
-  .card{grid-column: span 12}
 }
 
 /* Offset for fixed navbar when jumping to sections */
@@ -235,11 +253,6 @@ section[id]{ scroll-margin-top: 96px; }
   color:var(--text); text-decoration:none; margin-left:6px;
 }
 
-/* Project card action row */
-.actions{ display:flex; gap:10px; margin-top:14px; }
-.btn.small{ padding:8px 12px; border-radius:10px; font-weight:700; font-size:14px; }
-.btn.ghost{ background:transparent; }
-
 /* Contact card */
 .contact-card{
   background:var(--card); border:1px solid var(--border);
@@ -248,23 +261,11 @@ section[id]{ scroll-margin-top: 96px; }
 .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
 
 /* Footer */
-.footer{ padding:36px 0; text-align:center; border-top:1px solid var(--border); background:rgba(0,0,0,.08); }
-
-.tag.reveal {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  color: #fff; /* keep contrast on dark background */
-}
-
-.chip {
-  display: inline-block;
-  text-decoration: none;
-  color: var(--text);
-}
-.chip:hover {
-  border-color: rgba(124,245,255,.45);
-  background: rgba(255,255,255,.06);
+.footer{
+  padding:36px 0;
+  text-align:center;
+  border-top:1px solid var(--border);
+  background:rgba(0,0,0,.08);
 }
 
 /* ===== PRELOADER ===== */
@@ -281,7 +282,7 @@ section[id]{ scroll-margin-top: 96px; }
 .pl-logo{
   display:inline-flex; gap:10px; align-items:center; justify-content:center;
   font-weight:800; letter-spacing:.5px; font-size:clamp(18px,3vw,22px);
-  padding:10px 14px; border:1px solid var(--border); border-radius:14px; 
+  padding:10px 14px; border:1px solid var(--border); border-radius:14px;
   background:var(--glass);
 }
 .pl-logo i{ color:var(--accent) }
@@ -301,6 +302,7 @@ section[id]{ scroll-margin-top: 96px; }
 }
 .pl-lanes .lane:nth-child(2)::after{ animation-delay:.25s }
 .pl-lanes .lane:nth-child(3)::after{ animation-delay:.5s }
+
 @keyframes lane-sweep{ to { transform:translateX(400%) } }
 
 .pl-bar{
@@ -315,9 +317,47 @@ section[id]{ scroll-margin-top: 96px; }
 }
 .pl-meta{ margin-top:10px; color:var(--muted); font-size:14px }
 
+/* ========== RESPONSIVE ========== */
+@media (max-width: 900px){
+  .hero .hero-inner{grid-template-columns:1fr}
+  .hamburger{display:block}
+
+  .links{
+    display:none;
+    position:absolute;
+    top:68px;
+    right:16px;
+    flex-direction:column;
+    gap:10px;
+    padding:12px;
+    border:1px solid var(--border);
+    background: rgba(7,10,22,0.92);
+    backdrop-filter: blur(10px);
+    border-radius:14px;
+    min-width:220px;
+    z-index:1001;
+  }
+
+  .card{grid-column: span 6}
+}
+
+@media (max-width: 640px){
+  .card{grid-column: span 12}
+}
+
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
+  .scroll-glow { transition:none; }
   .pl-lanes .lane::after{ animation:none }
   .pl-fill{ transition:none }
   #preloader{ transition:none }
+
+  .reveal,
+  .fade-on-scroll,
+  [data-fade] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
 }
