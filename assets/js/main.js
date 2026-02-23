@@ -30,7 +30,8 @@ menuBtn?.addEventListener('click', () => {
 (function () {
   // Inject fade CSS so you don't need to edit CSS file right now
   const style = document.createElement('style');
-  style.innerHTML = `
+  style.innerHTML = ` ... `;
+  document.head.appendChild(style);
     .reveal,
     .fade-on-scroll,
     [data-fade] {
