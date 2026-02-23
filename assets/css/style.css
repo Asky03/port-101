@@ -162,8 +162,56 @@ h1{font-size: clamp(38px, 6vw, 72px); line-height:1.06; margin:0 0 12px}
 .chip{font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.02)}
 
 /* ========== REVEAL (simple) ========== */
-.reveal{opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease}
-.reveal.visible{opacity:1; transform:translateY(0)}
+/* ========== SCROLL REVEAL / FADE ========== */
+/* Supports: .reveal, .fade-on-scroll, [data-fade] */
+.reveal,
+.fade-on-scroll,
+[data-fade] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+  will-change: opacity, transform;
+}
+
+/* Visible state added by JS */
+.reveal.visible,
+.fade-on-scroll.visible,
+[data-fade].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional variants if you want more styles later */
+[data-fade="left"] { transform: translateX(-18px); }
+[data-fade="right"] { transform: translateX(18px); }
+[data-fade="up"] { transform: translateY(18px); }
+[data-fade="down"] { transform: translateY(-18px); }
+
+[data-fade="left"].visible,
+[data-fade="right"].visible,
+[data-fade="up"].visible,
+[data-fade="down"].visible {
+  transform: translate(0, 0);
+}
+
+/* Optional: smoother stagger container rendering */
+[data-stagger] > * {
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .fade-on-scroll,
+  [data-fade] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+}
 
 /* ========== RESPONSIVE ========== */
 @media (max-width: 900px){
