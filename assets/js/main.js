@@ -6,62 +6,45 @@ const io = new IntersectionObserver((entries) => {
   entries.forEach((e) => {
     if (!e.isIntersecting) return;
     const id = `#${e.target.id}`;
-    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+    navLinks.forEach((a) => {
+      a.classList.toggle('active', a.getAttribute('href') === id);
+    });
   });
 }, { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 });
 
-sections.forEach(s => io.observe(s));
+sections.forEach((s) => io.observe(s));
 
 // Navbar border on scroll
 const nav = document.getElementById('nav');
 document.addEventListener('scroll', () => {
   nav?.classList.toggle('scrolled', window.scrollY > 12);
-});
+}, { passive: true });
 
 // Mobile menu
 const menuBtn = document.getElementById('menuBtn');
 const linksWrap = document.getElementById('links');
+
 menuBtn?.addEventListener('click', () => {
   if (!linksWrap) return;
-  linksWrap.style.display = linksWrap.style.display === 'flex' ? 'none' : 'flex';
+
+  const isOpen = linksWrap.style.display === 'flex';
+  linksWrap.style.display = isOpen ? 'none' : 'flex';
+  menuBtn.setAttribute('aria-expanded', String(!isOpen));
 });
 
-// ===== Scroll Fade / Reveal (JS-only, injects CSS too) =====
+// Close mobile menu when clicking a nav link
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    if (!linksWrap || !menuBtn) return;
+    if (window.innerWidth <= 900) {
+      linksWrap.style.display = 'none';
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+// ===== Scroll Fade / Reveal =====
 (function () {
-  // Inject fade CSS so you don't need to edit CSS file right now
-  const style = document.createElement('style');
-  style.innerHTML = ` ... `;
-  document.head.appendChild(style);
-    .reveal,
-    .fade-on-scroll,
-    [data-fade] {
-      opacity: 0;
-      transform: translateY(18px);
-      transition:
-        opacity 700ms ease,
-        transform 700ms ease;
-      will-change: opacity, transform;
-    }
-
-    .reveal.visible,
-    .fade-on-scroll.visible,
-    [data-fade].visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .reveal,
-      .fade-on-scroll,
-      [data-fade] {
-        opacity: 1 !important;
-        transform: none !important;
-        transition: none !important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fadeTargets = [
     ...document.querySelectorAll('.reveal, .fade-on-scroll, [data-fade]')
@@ -72,7 +55,11 @@ menuBtn?.addEventListener('click', () => {
   document.querySelectorAll('[data-stagger]').forEach((parent) => {
     const children = [...parent.children];
     children.forEach((child, index) => {
-      if (!child.classList.contains('reveal') && !child.classList.contains('fade-on-scroll') && !child.hasAttribute('data-fade')) {
+      if (
+        !child.classList.contains('reveal') &&
+        !child.classList.contains('fade-on-scroll') &&
+        !child.hasAttribute('data-fade')
+      ) {
         child.classList.add('fade-on-scroll');
       }
       child.style.transitionDelay = `${index * 90}ms`;
@@ -81,7 +68,7 @@ menuBtn?.addEventListener('click', () => {
   });
 
   if (prefersReducedMotion) {
-    fadeTargets.forEach(el => el.classList.add('visible'));
+    fadeTargets.forEach((el) => el.classList.add('visible'));
     return;
   }
 
@@ -96,29 +83,26 @@ menuBtn?.addEventListener('click', () => {
     rootMargin: '0px 0px -8% 0px'
   });
 
-  fadeTargets.forEach(el => io2.observe(el));
+  fadeTargets.forEach((el) => io2.observe(el));
 })();
 
 // Footer year
 const y = document.getElementById('year');
 if (y) y.textContent = new Date().getFullYear();
 
-// ===== Email button: Gmail on desktop, mail app on mobile (fallback to mailto) =====
-
-// View Projects button scroll/redirect
+// View Projects button scroll/redirect + scroll glow
 document.addEventListener('DOMContentLoaded', function () {
   var btn = document.getElementById('view-projects-btn');
   if (btn) {
     btn.addEventListener('click', function () {
       var projectsSection = document.getElementById('projects');
       if (projectsSection) {
-        // Respect prefers-reduced-motion
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         projectsSection.scrollIntoView({
           behavior: prefersReducedMotion ? 'auto' : 'smooth'
         });
       } else {
-        window.location.href = '/projects.html'; // or '/projects' if that's your route
+        window.location.href = '/projects.html';
       }
     });
   }
@@ -134,9 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
         var scrollY = window.scrollY || window.pageYOffset;
         var docHeight = document.documentElement.scrollHeight - window.innerHeight;
         var percent = docHeight > 0 ? scrollY / docHeight : 0.4;
+
         // Clamp between 10% and 80%
-        var y = 10 + percent * 70;
-        glow.style.setProperty('--glow-y', y + '%');
+        var yPos = 10 + percent * 70;
+        glow.style.setProperty('--glow-y', yPos + '%');
+
         rafId = null;
       }
 
@@ -150,6 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
+// Email button: Gmail on desktop, mail app on mobile (fallback to mailto)
 (function () {
   const emailBtn = document.getElementById('emailBtn');
   if (!emailBtn) return;
@@ -165,15 +152,14 @@ I saw your portfolio and would love to connect about...`;
 
   emailBtn.addEventListener('click', (e) => {
     e.preventDefault();
+
     const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    // On mobile, prefer the default mail app
     if (isMobile) {
       window.location.href = mailto;
       return;
     }
 
-    // On desktop, open Gmail compose in a new tab. If blocked, fall back to mailto.
     const win = window.open(gmailCompose, '_blank');
     if (!win || win.closed || typeof win.closed === 'undefined') {
       window.location.href = mailto;
@@ -183,22 +169,24 @@ I saw your portfolio and would love to connect about...`;
 
 // ===== PRELOADER =====
 // Plays once per browser session
-(function(){
+(function () {
   const pre = document.getElementById('preloader');
   const fill = document.getElementById('plFill');
-  const pct  = document.getElementById('plPct');
+  const pct = document.getElementById('plPct');
 
   if (!pre || sessionStorage.getItem('seenPreloader')) {
     pre?.classList.add('hide');
     return;
   }
 
-  let p = 0, done = false;
+  let p = 0;
+  let done = false;
 
-  // Simulate work: quickly to 85%, then wait for real load -> 100
+  // Simulate work: quickly to ~90%, then wait for real load -> 100
   const tick = () => {
     if (done) return;
-    p += Math.max(1, (90 - p) * 0.06); // ease-out approach to ~90
+
+    p += Math.max(1, (90 - p) * 0.06);
     if (p > 90) p = 90;
 
     if (fill) fill.style.width = p.toFixed(0) + '%';
@@ -208,12 +196,11 @@ I saw your portfolio and would love to connect about...`;
   };
   tick();
 
-  // When everything is loaded, finish to 100 then hide
   const finish = () => {
     if (done) return;
     done = true;
-    let v = p;
 
+    let v = p;
     const anim = () => {
       v += (100 - v) * 0.18;
       if (v > 99.5) v = 100;
@@ -221,19 +208,19 @@ I saw your portfolio and would love to connect about...`;
       if (fill) fill.style.width = v.toFixed(0) + '%';
       if (pct) pct.textContent = v.toFixed(0) + '%';
 
-      if (v < 100) requestAnimationFrame(anim);
-      else {
+      if (v < 100) {
+        requestAnimationFrame(anim);
+      } else {
         setTimeout(() => {
           pre.classList.add('hide');
-          sessionStorage.setItem('seenPreloader','1');
-        }, 200); // tiny pause for drama
+          sessionStorage.setItem('seenPreloader', '1');
+        }, 200);
       }
     };
+
     anim();
   };
 
-  // Safety timeout (e.g., slow network) -> finish after 6s
-  setTimeout(finish, 6000);
-  // Real signal
-  window.addEventListener('load', finish);
+  setTimeout(finish, 6000); // safety timeout
+  window.addEventListener('load', finish); // real signal
 })();
