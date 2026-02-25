@@ -107,6 +107,211 @@ body{
   color:var(--text); text-decoration:none; font-weight:700;
 }
 
+/* ========== CERTIFICATIONS ========== */
+.cert-subtitle {
+  margin-top: -4px;
+  margin-bottom: 20px;
+}
+
+.cert-carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.cert-viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.cert-track {
+  display: flex;
+  gap: 18px;
+  transition: transform 450ms ease;
+  will-change: transform;
+  padding: 8px 4px;
+}
+
+.cert-card {
+  flex: 0 0 min(320px, 82vw);
+  height: 360px;
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+}
+
+.cert-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 700ms ease;
+  transform-style: preserve-3d;
+}
+
+.cert-card.is-flipped .cert-card-inner {
+  transform: rotateY(180deg);
+}
+
+.cert-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.18);
+}
+
+.cert-front {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+}
+
+.cert-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(124,245,255,.35);
+  background:
+    radial-gradient(circle at 30% 25%, rgba(124,245,255,.12), transparent 55%),
+    radial-gradient(circle at 75% 75%, rgba(167,139,250,.12), transparent 50%);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 20px;
+  gap: 10px;
+}
+
+.cert-doc-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: #8fd8ff;
+  font-size: 1.25rem;
+}
+
+.cert-front h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.25;
+}
+
+.cert-front p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.cert-pill {
+  margin-top: 6px;
+  font-size: .8rem;
+  color: #aee7ff;
+  border: 1px solid rgba(124,245,255,.25);
+  background: rgba(124,245,255,.06);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.cert-back {
+  transform: rotateY(180deg);
+  padding: 18px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+}
+
+.cert-back h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.cert-back ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.55;
+  font-size: .92rem;
+}
+
+.cert-back li strong {
+  color: var(--text);
+}
+
+/* Nav buttons */
+.cert-nav {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.cert-nav:hover {
+  transform: translateY(-2px);
+  border-color: rgba(124,245,255,.45);
+  box-shadow: 0 8px 20px rgba(124,245,255,.12);
+}
+
+.cert-nav:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Active card focus */
+.cert-card:focus-visible .cert-face {
+  border-color: rgba(124,245,255,.55);
+  box-shadow: 0 0 0 3px rgba(124,245,255,.18);
+}
+
+/* Hover polish */
+.cert-card:hover .cert-front {
+  border-color: rgba(124,245,255,.35);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .cert-card {
+    flex-basis: min(290px, 86vw);
+    height: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cert-carousel {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .cert-viewport {
+    order: 1;
+  }
+
+  .cert-prev, .cert-next {
+    position: static;
+    justify-self: center;
+  }
+
+  .cert-prev { order: 2; }
+  .cert-next { order: 3; }
+}
+
 .btn.primary {
   border-color: transparent;
   background: linear-gradient(135deg, var(--accent) 0%, #64d2ff 40%, #70a6ff 100%);
