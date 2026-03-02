@@ -238,88 +238,96 @@ I saw your portfolio and would love to connect about...`;
 })();
 
 // ===============================
-// Certifications Carousel + Flip Cards
+// Certifications 3D Vertical Orbit
 // ===============================
 (function () {
   const track = document.getElementById('certTrack');
   const prevBtn = document.getElementById('certPrev');
   const nextBtn = document.getElementById('certNext');
-  const viewport = document.getElementById('certViewport');
 
-  if (!track || !prevBtn || !nextBtn || !viewport) return;
+  if (!track || !prevBtn || !nextBtn) return;
 
-  const cards = Array.from(track.querySelectorAll('.cert-card'));
-  let currentIndex = 0;
+  const cards = Array.from(track.querySelectorAll('.cert-orbit-card'));
+  let activeIndex = 0;
 
-  function getStep() {
-    if (!cards.length) return 0;
+  function applyPositions() {
+    const total = cards.length;
 
-    const card = cards[0];
-    const trackStyles = window.getComputedStyle(track);
-    const cardWidth = card.getBoundingClientRect().width;
-    const gap = parseFloat(trackStyles.gap || '18');
+    cards.forEach((card, index) => {
+      card.classList.remove(
+        'is-active',
+        'is-prev',
+        'is-next',
+        'is-back-prev',
+        'is-back-next',
+        'is-hidden',
+        'is-flipped'
+      );
 
-    return cardWidth + gap;
+      const diff = (index - activeIndex + total) % total;
+
+      if (diff === 0) {
+        card.classList.add('is-active');
+      } else if (diff === 1) {
+        card.classList.add('is-next');
+      } else if (diff === 2) {
+        card.classList.add('is-back-next');
+      } else if (diff === total - 1) {
+        card.classList.add('is-prev');
+      } else if (diff === total - 2) {
+        card.classList.add('is-back-prev');
+      } else {
+        card.classList.add('is-hidden');
+      }
+    });
   }
 
-  function maxIndex() {
-    const step = getStep();
-    if (!step) return 0;
-
-    const visibleWidth = viewport.clientWidth;
-    const totalWidth = track.scrollWidth;
-
-    return Math.max(0, Math.ceil((totalWidth - visibleWidth) / step));
+  function goNext() {
+    activeIndex = (activeIndex + 1) % cards.length;
+    applyPositions();
   }
 
-  function updateCarousel() {
-    const max = maxIndex();
-    if (currentIndex > max) currentIndex = max;
-
-    const x = currentIndex * getStep();
-    track.style.transform = `translateX(-${x}px)`;
-
-    prevBtn.disabled = currentIndex <= 0;
-    nextBtn.disabled = currentIndex >= max;
+  function goPrev() {
+    activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+    applyPositions();
   }
 
-  prevBtn.addEventListener('click', () => {
-    currentIndex = Math.max(0, currentIndex - 1);
-    updateCarousel();
-  });
+  nextBtn.addEventListener('click', goNext);
+  prevBtn.addEventListener('click', goPrev);
 
-  nextBtn.addEventListener('click', () => {
-    currentIndex = Math.min(maxIndex(), currentIndex + 1);
-    updateCarousel();
-  });
-
-  cards.forEach((card) => {
+  cards.forEach((card, index) => {
     card.addEventListener('click', (e) => {
-      if (e.target.closest('a')) return; // don't flip if user clicked link
+      if (e.target.closest('a')) return;
+
+      if (index !== activeIndex) {
+        activeIndex = index;
+        applyPositions();
+        return;
+      }
+
       card.classList.toggle('is-flipped');
     });
 
     card.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        goNext();
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        goPrev();
+      }
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        card.classList.toggle('is-flipped');
-      }
-
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        currentIndex = Math.min(maxIndex(), currentIndex + 1);
-        updateCarousel();
-      }
-
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        currentIndex = Math.max(0, currentIndex - 1);
-        updateCarousel();
+        if (index !== activeIndex) {
+          activeIndex = index;
+          applyPositions();
+        } else {
+          card.classList.toggle('is-flipped');
+        }
       }
     });
   });
 
-  window.addEventListener('resize', updateCarousel, { passive: true });
-
-  updateCarousel();
+  applyPositions();
 })();

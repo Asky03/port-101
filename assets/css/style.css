@@ -705,3 +705,426 @@ h1{
     transition: none !important;
   }
 }
+
+/* =========================================================
+   CERTIFICATIONS 3D ORBIT STYLE
+   ========================================================= */
+.cert-section .container {
+  position: relative;
+}
+
+.cert-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 22px;
+}
+
+.cert-vertical-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cert-nav-vertical {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all .25s ease;
+  backdrop-filter: blur(10px);
+}
+
+.cert-nav-vertical:hover {
+  transform: translateY(-2px);
+  border-color: rgba(82,214,255,.35);
+  box-shadow: 0 12px 24px rgba(45,57,255,.14);
+}
+
+.cert-3d-wrap {
+  position: relative;
+  min-height: 560px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.cert-stack {
+  position: relative;
+  width: min(100%, 1080px);
+  height: 520px;
+  perspective: 1800px;
+}
+
+.cert-orbit-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(340px, 82vw);
+  height: 420px;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  transition:
+    transform 650ms cubic-bezier(.2,.8,.2,1),
+    opacity 650ms ease,
+    filter 650ms ease,
+    z-index 650ms ease;
+  cursor: pointer;
+  outline: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cert-orbit-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 800ms ease;
+  transform-style: preserve-3d;
+}
+
+.cert-orbit-card.is-flipped .cert-orbit-inner {
+  transform: rotateY(180deg);
+}
+
+.cert-orbit-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.30),
+    inset 0 0 0 1px rgba(255,255,255,.02);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.cert-orbit-front {
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.cert-orbit-back {
+  transform: rotateY(180deg);
+  padding: 22px;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.cert-orbit-ring {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(82,214,255,.28);
+  background:
+    radial-gradient(circle at 32% 26%, rgba(82,214,255,.12), transparent 56%),
+    radial-gradient(circle at 74% 76%, rgba(140,82,255,.14), transparent 54%);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+  padding: 24px;
+  gap: 10px;
+}
+
+.cert-orbit-front h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.cert-orbit-front p {
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Position states */
+.cert-orbit-card.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 6;
+  transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+  filter: blur(0px);
+}
+
+.cert-orbit-card.is-prev {
+  opacity: .95;
+  pointer-events: auto;
+  z-index: 5;
+  transform: translate(calc(-50% - 250px), -50%) scale(.86) rotateY(18deg);
+  filter: blur(.2px);
+}
+
+.cert-orbit-card.is-next {
+  opacity: .95;
+  pointer-events: auto;
+  z-index: 5;
+  transform: translate(calc(-50% + 250px), -50%) scale(.86) rotateY(-18deg);
+  filter: blur(.2px);
+}
+
+.cert-orbit-card.is-back-prev {
+  opacity: .34;
+  z-index: 3;
+  transform: translate(calc(-50% - 390px), -50%) scale(.72) rotateY(24deg);
+  filter: blur(1.5px);
+}
+
+.cert-orbit-card.is-back-next {
+  opacity: .34;
+  z-index: 3;
+  transform: translate(calc(-50% + 390px), -50%) scale(.72) rotateY(-24deg);
+  filter: blur(1.5px);
+}
+
+.cert-orbit-card.is-hidden {
+  opacity: 0;
+  z-index: 1;
+  transform: translate(-50%, -50%) scale(.58);
+  filter: blur(4px);
+}
+
+.cert-orbit-card.is-active .cert-orbit-face {
+  border-color: rgba(82,214,255,.24);
+  box-shadow:
+    0 22px 55px rgba(45,57,255,.18),
+    inset 0 0 0 1px rgba(82,214,255,.05);
+}
+
+.cert-orbit-back ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: .94rem;
+}
+
+.cert-orbit-back li strong {
+  color: var(--text);
+}
+
+/* =========================================================
+   TECH STACK VERTICAL MARQUEE
+   ========================================================= */
+.tech-section {
+  position: relative;
+}
+
+.tech-marquee-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  min-height: 520px;
+}
+
+.tech-column {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.015));
+  backdrop-filter: blur(10px);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.015);
+}
+
+.tech-column::before,
+.tech-column::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tech-column::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(4,5,10,0.95), rgba(4,5,10,0));
+}
+
+.tech-column::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(4,5,10,0.95), rgba(4,5,10,0));
+}
+
+.tech-column-featured {
+  transform: scale(1.03);
+  border-color: rgba(82,214,255,.16);
+  box-shadow:
+    0 12px 30px rgba(45,57,255,.10),
+    inset 0 0 0 1px rgba(82,214,255,.04);
+}
+
+.tech-marquee {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 22px;
+}
+
+.tech-marquee-up {
+  animation: techScrollUp 18s linear infinite;
+}
+
+.tech-marquee-down {
+  animation: techScrollDown 18s linear infinite;
+}
+
+.tech-marquee.slow {
+  animation-duration: 22s;
+}
+
+.tech-item {
+  min-height: 72px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, rgba(45,57,255,.10), rgba(82,214,255,.04));
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.012);
+}
+
+.tech-item i {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-size: 1.25rem;
+  color: #aee9ff;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(82,214,255,.18);
+  box-shadow: 0 0 20px rgba(45,57,255,.10);
+}
+
+.tech-item span {
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+
+@keyframes techScrollUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+@keyframes techScrollDown {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+
+/* =========================================================
+   RESPONSIVE OVERRIDES FOR NEW SECTIONS
+   ========================================================= */
+@media (max-width: 1100px) {
+  .cert-orbit-card.is-prev {
+    transform: translate(calc(-50% - 190px), -50%) scale(.82) rotateY(14deg);
+  }
+
+  .cert-orbit-card.is-next {
+    transform: translate(calc(-50% + 190px), -50%) scale(.82) rotateY(-14deg);
+  }
+
+  .cert-orbit-card.is-back-prev {
+    transform: translate(calc(-50% - 290px), -50%) scale(.68) rotateY(18deg);
+  }
+
+  .cert-orbit-card.is-back-next {
+    transform: translate(calc(-50% + 290px), -50%) scale(.68) rotateY(-18deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .cert-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cert-vertical-controls {
+    flex-direction: row;
+  }
+
+  .cert-3d-wrap {
+    min-height: 500px;
+  }
+
+  .cert-stack {
+    height: 460px;
+  }
+
+  .cert-orbit-card {
+    width: min(300px, 84vw);
+    height: 390px;
+  }
+
+  .cert-orbit-card.is-prev,
+  .cert-orbit-card.is-next {
+    opacity: .55;
+    transform: translate(-50%, -50%) scale(.78);
+  }
+
+  .cert-orbit-card.is-back-prev,
+  .cert-orbit-card.is-back-next,
+  .cert-orbit-card.is-hidden {
+    opacity: 0;
+  }
+
+  .tech-marquee-wrap {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tech-column,
+  .tech-column-featured {
+    transform: none;
+    height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .cert-3d-wrap {
+    min-height: 440px;
+  }
+
+  .cert-stack {
+    height: 400px;
+  }
+
+  .cert-orbit-card {
+    width: min(280px, 88vw);
+    height: 360px;
+  }
+
+  .tech-item {
+    min-height: 64px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tech-marquee-up,
+  .tech-marquee-down {
+    animation: none !important;
+  }
+
+  .cert-orbit-card {
+    transition: none !important;
+  }
+}
