@@ -10,9 +10,9 @@ if (sections.length && navLinks.length) {
       entries.forEach((e) => {
         if (!e.isIntersecting) return;
         const id = `#${e.target.id}`;
-        navLinks.forEach((a) =>
-          a.classList.toggle('active', a.getAttribute('href') === id)
-        );
+        navLinks.forEach((a) => {
+          a.classList.toggle('active', a.getAttribute('href') === id);
+        });
       });
     },
     { rootMargin: '-40% 0px -50% 0px', threshold: 0.01 }
@@ -61,7 +61,7 @@ if (revs.length) {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // reveal once
+        observer.unobserve(entry.target);
       });
     },
     { threshold: 0.16, rootMargin: '0px 0px -6% 0px' }
@@ -80,7 +80,6 @@ if (y) y.textContent = String(new Date().getFullYear());
 // DOMContentLoaded: View Projects + scroll glow
 // ===============================
 document.addEventListener('DOMContentLoaded', function () {
-  // View Projects button
   const btn = document.getElementById('view-projects-btn');
   if (btn) {
     btn.addEventListener('click', function () {
@@ -96,12 +95,11 @@ document.addEventListener('DOMContentLoaded', function () {
           block: 'start',
         });
       } else {
-        window.location.href = '/projects.html'; // fallback page if section absent
+        window.location.href = '/projects.html';
       }
     });
   }
 
-  // Blue scroll glow effect
   const glow = document.querySelector('.scroll-glow');
   if (glow) {
     const prefersReducedMotion = window.matchMedia(
@@ -117,7 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
           document.documentElement.scrollHeight - window.innerHeight;
         const percent = docHeight > 0 ? scrollY / docHeight : 0.4;
 
-        // Clamp glow Y between 10% and 80%
         const yPos = 10 + percent * 70;
         glow.style.setProperty('--glow-y', yPos + '%');
 
@@ -139,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ===============================
-// Email button: Gmail on desktop, mail app on mobile (fallback mailto)
+// Email button
 // ===============================
 (function () {
   const emailBtn = document.getElementById('emailBtn');
@@ -177,7 +174,7 @@ I saw your portfolio and would love to connect about...`;
 })();
 
 // ===============================
-// PRELOADER (plays once per browser session)
+// PRELOADER
 // ===============================
 (function () {
   const pre = document.getElementById('preloader');
@@ -192,7 +189,6 @@ I saw your portfolio and would love to connect about...`;
   let p = 0;
   let done = false;
 
-  // Simulate load to ~90%
   const tick = () => {
     if (done) return;
 
@@ -206,7 +202,6 @@ I saw your portfolio and would love to connect about...`;
   };
   tick();
 
-  // Finish to 100 and hide
   const finish = () => {
     if (done) return;
     done = true;
@@ -233,12 +228,12 @@ I saw your portfolio and would love to connect about...`;
     anim();
   };
 
-  setTimeout(finish, 6000); // safety timeout
+  setTimeout(finish, 6000);
   window.addEventListener('load', finish);
 })();
 
 // ===============================
-// Certifications 3D Vertical Orbit
+// Certifications Continuous Orbit
 // ===============================
 (function () {
   const track = document.getElementById('certTrack');
@@ -248,7 +243,10 @@ I saw your portfolio and would love to connect about...`;
   if (!track || !prevBtn || !nextBtn) return;
 
   const cards = Array.from(track.querySelectorAll('.cert-orbit-card'));
+  if (!cards.length) return;
+
   let activeIndex = 0;
+  let autoRotate = null;
 
   function applyPositions() {
     const total = cards.length;
@@ -260,8 +258,7 @@ I saw your portfolio and would love to connect about...`;
         'is-next',
         'is-back-prev',
         'is-back-next',
-        'is-hidden',
-        'is-flipped'
+        'is-hidden'
       );
 
       const diff = (index - activeIndex + total) % total;
@@ -282,18 +279,37 @@ I saw your portfolio and would love to connect about...`;
     });
   }
 
-  function goNext() {
+  function nextCard() {
     activeIndex = (activeIndex + 1) % cards.length;
     applyPositions();
   }
 
-  function goPrev() {
+  function prevCard() {
     activeIndex = (activeIndex - 1 + cards.length) % cards.length;
     applyPositions();
   }
 
-  nextBtn.addEventListener('click', goNext);
-  prevBtn.addEventListener('click', goPrev);
+  function startAutoRotate() {
+    stopAutoRotate();
+    autoRotate = setInterval(nextCard, 2400);
+  }
+
+  function stopAutoRotate() {
+    if (autoRotate) {
+      clearInterval(autoRotate);
+      autoRotate = null;
+    }
+  }
+
+  nextBtn.addEventListener('click', () => {
+    nextCard();
+    startAutoRotate();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    prevCard();
+    startAutoRotate();
+  });
 
   cards.forEach((card, index) => {
     card.addEventListener('click', (e) => {
@@ -302,26 +318,35 @@ I saw your portfolio and would love to connect about...`;
       if (index !== activeIndex) {
         activeIndex = index;
         applyPositions();
+        startAutoRotate();
         return;
       }
 
       card.classList.toggle('is-flipped');
     });
 
+    card.addEventListener('mouseenter', stopAutoRotate);
+    card.addEventListener('mouseleave', startAutoRotate);
+
     card.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
-        goNext();
+        nextCard();
+        startAutoRotate();
       }
-      if (e.key === 'ArrowUp') {
+
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
-        goPrev();
+        prevCard();
+        startAutoRotate();
       }
+
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         if (index !== activeIndex) {
           activeIndex = index;
           applyPositions();
+          startAutoRotate();
         } else {
           card.classList.toggle('is-flipped');
         }
@@ -329,5 +354,9 @@ I saw your portfolio and would love to connect about...`;
     });
   });
 
+  track.addEventListener('mouseenter', stopAutoRotate);
+  track.addEventListener('mouseleave', startAutoRotate);
+
   applyPositions();
+  startAutoRotate();
 })();
